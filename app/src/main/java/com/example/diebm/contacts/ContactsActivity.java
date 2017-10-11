@@ -28,9 +28,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         usernameList.addAll(Arrays.asList(usernames));
 
-        // Create ArrayAdapter using the usenname list
-
-        listAdapter = new ArrayAdapter<String>(this, R.layout.stringrow, usernameList);
+        listAdapter = new UserAdapter(this, usernameList);
 
         my_contacts.setAdapter(listAdapter);
     }
