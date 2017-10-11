@@ -1,5 +1,7 @@
 package com.example.diebm.contacts;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -71,9 +73,27 @@ public class UserList {
     }
 
     public boolean isUserNameAvailable(String username) {
-        if (getUserByUsername(username) != null) {
-            return false;
+        if (getUserByUsername(username) == null) {
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    public void loadUsers(Context context) {
+        // TODO: remove this and actually read it from storage
+        users = new ArrayList<User>();
+
+        users.add(new User("fulanito", "fulanito@gmail.com", "id1"));
+
+        users.add(new User("fulanita", "fulanita@gmail.com", "id2"));
+
+        users.add(new User("meganito", "menganito@gmail.com", "id4"));
+
+        users.add(new User("meganita", "menganita@gmail.com", "id4"));
+    }
+
+    public void saveUsers(Context context) {
+        // TODO: remove this and actually save it to storage
+
     }
 }

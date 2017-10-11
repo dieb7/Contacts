@@ -1,7 +1,9 @@
 package com.example.diebm.contacts;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,11 +26,15 @@ public class ContactsActivity extends AppCompatActivity {
         // Create and populate a list of users
         UserList userList = new UserList();
 
-        userList.addUser(new User("Fulanito", "fulanito@gmail.com", "0"));
-        userList.addUser(new User("Menganito", "menganito@gmail.com", "1"));
+        userList.loadUsers(getApplicationContext());
 
         listAdapter = new UserAdapter(this, userList.getUsers());
 
         my_contacts.setAdapter(listAdapter);
+    }
+
+    public void addUserActivity(View view) {
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
     }
 }
