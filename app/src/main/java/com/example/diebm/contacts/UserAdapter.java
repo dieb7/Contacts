@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * Created by diebm on 10/10/17.
  */
 
-public class UserAdapter extends ArrayAdapter<String> {
+public class UserAdapter extends ArrayAdapter<User> {
     private Context context;
-    ArrayList<String> users;
+    ArrayList<User> users;
 
-    public UserAdapter(Context context, ArrayList<String> users) {
+    public UserAdapter(Context context, ArrayList<User> users) {
         super(context, 0, users);
         this.context = context;
         this.users = users;
@@ -28,9 +28,11 @@ public class UserAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.contactrow, parent, false);
 
-        TextView textView = (TextView) rowView.findViewById(R.id.contactName);
+        TextView userNameTextView = (TextView) rowView.findViewById(R.id.contactName);
+        TextView emailTextView = (TextView) rowView.findViewById(R.id.contactEmail);
 
-        textView.setText(users.get(position));
+        userNameTextView.setText(users.get(position).getUsername());
+        emailTextView.setText(users.get(position).getEmail());
 
         return rowView;
     }

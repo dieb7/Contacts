@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class ContactsActivity extends AppCompatActivity {
 
     private ListView my_contacts;
-    private ArrayAdapter<String> listAdapter;
+    private ArrayAdapter<User> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +21,13 @@ public class ContactsActivity extends AppCompatActivity {
         // Find the listView resource
         my_contacts = (ListView) findViewById(R.id.contactsListView);
 
-        // Create and populate a list of user names.
-        String[] usernames = new String[] {"Fulanito", "Menganito", "Sutanito"};
+        // Create and populate a list of users
+        UserList userList = new UserList();
 
-        ArrayList<String> usernameList = new ArrayList<String>();
+        userList.addUser(new User("Fulanito", "fulanito@gmail.com", "0"));
+        userList.addUser(new User("Menganito", "menganito@gmail.com", "1"));
 
-        usernameList.addAll(Arrays.asList(usernames));
-
-        listAdapter = new UserAdapter(this, usernameList);
+        listAdapter = new UserAdapter(this, userList.getUsers());
 
         my_contacts.setAdapter(listAdapter);
     }
