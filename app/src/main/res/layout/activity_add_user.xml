@@ -54,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="contact email"
-                android:inputType="textPersonName" />
+                android:hint="contact@gmail.com"
+                android:inputType="textEmailAddress" />
 
         </LinearLayout>
 
