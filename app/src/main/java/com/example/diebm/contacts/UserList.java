@@ -1,7 +1,15 @@
 package com.example.diebm.contacts;
 
 import android.content.Context;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +18,7 @@ import java.util.ArrayList;
 
 public class UserList {
     private static ArrayList<User> users;
+    private String FILENAME = "user_file.sav";
 
     public UserList() {
         users = new ArrayList<User>();
@@ -46,7 +55,7 @@ public class UserList {
     public int getIndex(User user) {
         int pos = 0;
         for (User u : users) {
-            if (user.getId().equals(u.getId())) {
+            if (user.getUsername().equals(u.getUsername())) {
                 return pos;
             }
             pos = pos+1;
@@ -56,7 +65,7 @@ public class UserList {
 
     public boolean hasUser(User user) {
         for (User u : users) {
-            if (user.getId().equals(u.getId())) {
+            if (user.getUsername().equals(u.getUsername())) {
                 return true;
             }
         }
@@ -65,7 +74,7 @@ public class UserList {
 
     public User getUserByUsername(String username) {
         for (User u : users) {
-            if (u.getId().equals(username)) {
+            if (u.getUsername().equals(username)) {
                 return u;
             }
         }
@@ -80,20 +89,33 @@ public class UserList {
     }
 
     public void loadUsers(Context context) {
-        // TODO: remove this and actually read it from storage
-        users = new ArrayList<User>();
-
-        users.add(new User("fulanito", "fulanito@gmail.com", "id1"));
-
-        users.add(new User("fulanita", "fulanita@gmail.com", "id2"));
-
-        users.add(new User("meganito", "menganito@gmail.com", "id4"));
-
-        users.add(new User("meganita", "menganita@gmail.com", "id4"));
+        try {
+            FileInputStream fis = context.openFileInput(FILENAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<User>>() {}.getType();
+            users = gson.fromJson(isr, listType); // temporary
+            fis.close();
+        } catch (FileNotFoundException e) {
+            users = new ArrayList<User>();
+        } catch (IOException e) {
+            users = new ArrayList<User>();
+        }
     }
 
     public void saveUsers(Context context) {
-        // TODO: remove this and actually save it to storage
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(users, osw);
+            osw.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
