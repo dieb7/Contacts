@@ -25,7 +25,7 @@ public class EditUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
-        email = (EditText) findViewById(R.id.contactEmailEditText);
+        email = (EditText) findViewById(R.id.contactNewEmailtextEdit);
 
         context = getApplicationContext();
 
@@ -49,9 +49,23 @@ public class EditUserActivity extends AppCompatActivity {
             email.setError("Empty field!");
             return;
         }
+
+        user.setEmail(email_str);
+
+        user_list.saveUsers(context);
+
+        /* End EditUserActivity */
+        Intent intent = new Intent(this, ContactsActivity.class);
+        startActivity(intent);
     }
 
     public void deleteUser(View view) {
+        user_list.removeUser(user);
 
+        user_list.saveUsers(context);
+
+        /* End EditUserActivity */
+        Intent intent = new Intent(this, ContactsActivity.class);
+        startActivity(intent);
     }
 }

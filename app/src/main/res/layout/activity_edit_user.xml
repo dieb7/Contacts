@@ -47,7 +47,7 @@
                 android:text="New Email:" />
 
             <EditText
-                android:id="@+id/newEmailtextEdit"
+                android:id="@+id/contactNewEmailtextEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
